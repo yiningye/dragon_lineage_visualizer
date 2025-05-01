@@ -1,0 +1,41 @@
+<html>
+<head>
+  <title>Dragon Lineage Builder</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+  <div id="controls">
+    <input type="text" id="dragonId" placeholder="Enter Dragon ID">
+    <input type="number" id="maxGen" placeholder="Max Generations" min="1" max="10">
+    <button id="fetchLineage">Fetch Lineage</button>
+  </div>
+  
+  <div id="tree-container"></div>
+
+  <script>
+    document.getElementById('fetchLineage').addEventListener('click', async () => {
+      const id = document.getElementById('dragonId').value;
+      const maxGen = parseInt(document.getElementById('maxGen').value, 10);
+
+      if (!id || isNaN(maxGen)) {
+        alert("Please fill out both fields!");
+        return;
+      }
+
+      // Fetch the JSON
+      try {
+        const response = await fetch(`/api/lineage?dragonId=${id}&maxGen=${maxGen}`);
+        const lineageData = await response.json();
+
+        renderTree(lineageData); // Then render it
+      } catch (e) {
+        console.error("Failed to fetch lineage", e);
+      }
+    });
+
+    function renderTree(data) {
+      // D3 render code, like we discussed earlier
+    }
+  </script>
+</body>
+</html>
