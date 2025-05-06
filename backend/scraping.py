@@ -20,11 +20,45 @@ def calculate_portrait_url(dragon_id):
 
     return 'http://flightrising.com/rendern/portraits/' + portrait_id + '/' + dragon_id + 'p.png'
 
+def which_flight(banner_img_link):
+    # Example img link: https://www1.flightrising.com/static/cms/location_banners/5.jpg
+    banner_number = banner_img_link.split("/")[-1].split(".")[0]
+    
+    if banner_number == 1 or banner_number == 2:
+        return "Earth"
+    elif banner_number == 41 or banner_number == 42:
+        return "Fire"
+    elif banner_number == 9 or banner_number == 10:
+        return "Wind"
+    elif banner_number == 13 or banner_number == 14:
+        return "Water"
+    elif banner_number == 25 or banner_number == 26:
+        return "Shadow"
+    elif banner_number == 21 or banner_number == 22:
+        return "Ice"
+    elif banner_number == 17 or banner_number == 18:
+        return "Lightning"
+    elif banner_number == 29 or banner_number == 30:
+        return "Light"
+    elif banner_number == 37 or banner_number == 38:
+        return "Nature"
+    elif banner_number == 5 or banner_number == 6:
+        return "Plague"
+    elif banner_number == 33 or banner_number == 34:
+        return "Arcane"
+    else:
+        return "Unknown"
+    
+
 def fetch_dragon_metadata(dragon_id, driver):
     dragon_url = 'https://www1.flightrising.com/dragon/'+dragon_id
     driver.get(dragon_url)
     wait = WebDriverWait(driver, 10)
     html = driver.page_source
+    
+    # Parse updated HTML with BeautifulSoup
+    soup = BeautifulSoup(html, "html.parser")
+    table = soup.find("table", {"id": "IncrementGridView_DXMainTable"})
     
     name = "Random-Name"
     gender = "F"
