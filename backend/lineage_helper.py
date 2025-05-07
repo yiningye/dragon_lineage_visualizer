@@ -7,6 +7,9 @@ class DragonNode:
         self.portrait_url = portrait_url
         self.children = []
         self.descendants_num = 0
+        self.url = ""
+    def add_child(self, child_node):
+        self.children.append(child_node)
     def add_child(self, child_node):
         self.children.append(child_node)
         
