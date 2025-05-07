@@ -51,7 +51,7 @@ def clan_flight(banner_img_link):
         return "Unknown"
     
 
-def fetch_dragon_metadata(dragon_id, driver):
+def fetch_dragon_metadata(dragon_node, dragon_id, driver):
     dragon_url = 'https://www1.flightrising.com/dragon/'+str(dragon_id)
     driver.get(dragon_url)
     wait = WebDriverWait(driver, 10)
@@ -79,17 +79,30 @@ def fetch_dragon_metadata(dragon_id, driver):
         print("Banner div not found.")
     flight = clan_flight(image_url)
     
-    #Name
-    banner_div = soup.find("div", class_="banner", role="banner")
+    # #Name
+    name_h1 = soup.find("h1", class_="dragon-profile-header-name", id="main-content")
+    if name_h1:
+        name = name_h1.get_text(strip=True)
+    else:
+        print("Name header not found.")
+    
+    #Gender
+    gender_div = soup.find("div", id = "dragon-profile-icon-sex-tooltip") 
 
-    name = "Random-Name"
-    gender = "F"    
-    portrait_url = calculate_portrait_url(dragon_id)
-    num_descendants = 0
-    
-    print(dragon_id, name, gender, flight, portrait_url)
-    
-    return DragonNode(dragon_id, name, gender, flight, portrait_url)
+    if gender_div:
+        print("gender div found")
+        strong_gender =  gender_div.find("strong")
+        if strong_gender:
+            print("strong found")
+
+            gender = strong_gender.text
+        else:
+            print("Gender text not found.")
+    else:
+        print("Gender tooltip div not found.")    
+        
+    dragon_node.update_metaData(name, gender, flight)
+    print(name, dragon_id, gender, flight)
 
 def fetch_dragon_lineage(root_dragon_id, max_generations=3):
     if max_generations > 5:
@@ -100,28 +113,28 @@ def fetch_dragon_lineage(root_dragon_id, max_generations=3):
         
         # Set up Selenium WebDriver
         driver = webdriver.Chrome()
-        root = fetch_dragon_metadata(root_dragon_id, driver)
-        driver.quit()
-        root = 
-        queue = []
-        queue.append((root, 1))  # store (node, current_level)
+        rootNode = DragonNode(root_dragon_id)
+        root = fetch_dragon_metadata(rootNode, root_dragon_id, driver)
+        # queue = []
+        # queue.append((root, 1))  # store (node, current_level)
 
-        while queue:
-            node, level = queue.popleft()
+        # while queue:
+        #     node, level = queue.popleft()
             
-            if level > max_levels:
-                break
+        #     if level > max_levels:
+        #         break
             
-            print(f"Level {level}: {node.value}")  # Or whatever processing you need
+        #     print(f"Level {level}: {node.value}")  # Or whatever processing you need
             
-            if node.left:
-                queue.append((node.left, level + 1))
-            if node.right:
-                queue.append((node.right, level + 1))
+        #     if node.left:
+        #         queue.append((node.left, level + 1))
+        #     if node.right:
+        #         queue.append((node.right, level + 1))
 
         # Convert the data into a json and send to frontend
         
         print(f"Dragon lineage saved in json")
+        driver.quit()
 
 
 fetch_dragon_lineage(9895, 4)

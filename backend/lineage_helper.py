@@ -1,17 +1,18 @@
 class DragonNode:
-    def __init__(self, id, name, gender, flight, portrait_url):
-        self.id = id
+    def __init__(self, dragon_id):
+        self.id = dragon_id
+        self.name = ""
+        self.gender = "U" #U - Unknown
+        self.flight = "Unknown" #Flight of the clan that the dragon belongs to
+        self.children = []
+        self.descendants_num = 0 #Updates after entire tree has beent built
+    def update_metaData(self, name, gender, flight):
         self.name = name
         self.gender = gender
         self.flight = flight
-        self.portrait_url = portrait_url
-        self.children = []
-        self.descendants_num = 0
-        self.url = ""
     def add_child(self, child_node):
         self.children.append(child_node)
-    def add_child(self, child_node):
-        self.children.append(child_node)
+    
         
 def serialize_tree(node):
     return {
