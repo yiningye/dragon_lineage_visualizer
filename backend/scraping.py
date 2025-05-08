@@ -23,8 +23,20 @@ def calculate_portrait_url(dragon_id):
     return 'http://flightrising.com/rendern/portraits/' + str(portrait_id) + '/' + str(dragon_id) + 'p.png'
 
 def clan_flight(banner_img_link):
-    # Example img link: /static/cms/location_banners/34.jpg
-    banner_number = int(banner_img_link.split("/")[-1].split(".")[0])
+    # Example flight banner link: /static/cms/location_banners/34.jpg
+    # Exalted banner: /static/layout/none/banner.jpg
+    banner_definer = banner_img_link.split("/")[-1].split(".")[0]
+    if banner_definer == "banner":
+        return "Exalted"
+    
+    banner_number = 0
+    try:
+        banner_number = int(banner_definer)
+    except ValueError as ve:
+        print("Exception: unrecognized banner", ve)
+        #Send a message to frontend
+        return
+    
     if banner_number == 1 or banner_number == 2:
         return "Earth"
     elif banner_number == 41 or banner_number == 42:
@@ -51,19 +63,7 @@ def clan_flight(banner_img_link):
         return "Unknown"
     
 
-def fetch_dragon_metadata(dragon_node, dragon_id, driver):
-    dragon_url = 'https://www1.flightrising.com/dragon/'+str(dragon_id)
-    driver.get(dragon_url)
-    wait = WebDriverWait(driver, 10)
-    html = driver.page_source
-    
-    WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located((By.TAG_NAME, "body"))
-    )
-    
-    # Parse HTML with BeautifulSoup
-    soup = BeautifulSoup(html, "html.parser")
-
+def update_dragon_metadata(dragon_node, soup):
     #Clan Flight
     banner_div = soup.find("div", class_="banner", role="banner")
     if banner_div:
@@ -79,32 +79,65 @@ def fetch_dragon_metadata(dragon_node, dragon_id, driver):
         print("Banner div not found.")
     flight = clan_flight(image_url)
     
+    
     # #Name
-    name_h1 = soup.find("h1", class_="dragon-profile-header-name", id="main-content")
+    if flight == "Exalted":
+        name_h1 = soup.find("h1", class_="content-header", id="main-content")
+    else:
+        name_h1 = soup.find("h1", class_="dragon-profile-header-name", id="main-content")
     if name_h1:
         name = name_h1.get_text(strip=True)
     else:
         print("Name header not found.")
     
     #Gender
-    gender_div = soup.find("div", id = "dragon-profile-icon-sex-tooltip") 
-
-    if gender_div:
-        print("gender div found")
-        strong_gender =  gender_div.find("strong")
-        if strong_gender:
-            print("strong found")
-
-            gender = strong_gender.text
-        else:
-            print("Gender text not found.")
+    if flight == "Exalted":
+        gender = "Unknown"
     else:
-        print("Gender tooltip div not found.")    
-        
-    dragon_node.update_metaData(name, gender, flight)
-    print(name, dragon_id, gender, flight)
+        gender_div = soup.find("div", id = "dragon-profile-icon-sex-tooltip") 
 
-def fetch_dragon_lineage(root_dragon_id, max_generations=3):
+        if gender_div:
+            print("gender div found")
+            strong_gender =  gender_div.find("strong")
+            if strong_gender:
+                print("strong found")
+
+                gender = strong_gender.text
+            else:
+                print("Gender text not found.")
+        else:
+            print("Gender tooltip div not found.")    
+            
+    dragon_node.update_metaData(name, gender, flight)
+    print(name, gender, flight)
+
+def update_offspring_nodes(node, soup):
+    if node.flight == "Exalted":
+        offspring_list = soup.find("ul", class_= "exalted-lineage-list")
+    else:
+        offspring_list = soup.find("ul", class_= "dragon-profile-lineage-offspring")
+    offspring_generation = node.generation + 1
+    children = []
+    if offspring_list:
+        for offspring in offspring_list.findAll('li'):
+            link = offspring.find("a")['href']
+            print("link", link)
+            #https://www1.flightrising.com/dragon/9900
+            dragon_id = int(link.split("/")[-1])
+            child_node = DragonNode(dragon_id, offspring_generation)
+            children.append(child_node)
+            
+        print("Added offspring.")
+        node.children = children
+        return children
+    else:
+        print("No offspring list.")
+        return []
+    
+def remove_exalted(root_node):
+    return
+
+def fetch_dragon_lineage(root_dragon_id, max_generations=3, exclude_exalted=False):
     if max_generations > 5:
         print("Risk of visualization being too cluttered")
         #  Send message to frontend
@@ -113,28 +146,42 @@ def fetch_dragon_lineage(root_dragon_id, max_generations=3):
         
         # Set up Selenium WebDriver
         driver = webdriver.Chrome()
-        rootNode = DragonNode(root_dragon_id)
-        root = fetch_dragon_metadata(rootNode, root_dragon_id, driver)
-        # queue = []
-        # queue.append((root, 1))  # store (node, current_level)
+        rootNode = DragonNode(root_dragon_id, 1)
+        queue = []
+        queue.append(rootNode)  
+        while queue:
+            node = queue.pop(0)
+            if node.generation > max_generations:
+                break
+            dragon_url = 'https://www1.flightrising.com/dragon/'+str(node.dragon_id)
+            driver.get(dragon_url)
+            wait = WebDriverWait(driver, 10)
+            html = driver.page_source
+            
+            WebDriverWait(driver, 10).until(
+                EC.presence_of_element_located((By.TAG_NAME, "body"))
+            )
+            # Parse HTML with BeautifulSoup
+            soup = BeautifulSoup(html, "html.parser")
+            
+            #Update Node attributes
+            update_dragon_metadata(node, soup)
+                
+                
+            offspring = update_offspring_nodes(node, soup)
+            print(node.dragon_id)
+            for child_node in offspring:
+                queue.append(child_node)
+            
+            
+        if exclude_exalted:
+            remove_exalted(rootNode)
 
-        # while queue:
-        #     node, level = queue.popleft()
             
-        #     if level > max_levels:
-        #         break
-            
-        #     print(f"Level {level}: {node.value}")  # Or whatever processing you need
-            
-        #     if node.left:
-        #         queue.append((node.left, level + 1))
-        #     if node.right:
-        #         queue.append((node.right, level + 1))
-
         # Convert the data into a json and send to frontend
         
         print(f"Dragon lineage saved in json")
         driver.quit()
 
 
-fetch_dragon_lineage(9895, 4)
+fetch_dragon_lineage(9895, 3)
