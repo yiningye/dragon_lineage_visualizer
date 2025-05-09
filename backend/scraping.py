@@ -22,49 +22,10 @@ def calculate_portrait_url(dragon_id):
 
     return 'http://flightrising.com/rendern/portraits/' + str(portrait_id) + '/' + str(dragon_id) + 'p.png'
 
-def clan_flight(banner_img_link):
+def clan_flight_exalted(soup):
     # Example flight banner link: /static/cms/location_banners/34.jpg
     # Exalted banner: /static/layout/none/banner.jpg
-    banner_definer = banner_img_link.split("/")[-1].split(".")[0]
-    if banner_definer == "banner":
-        return "Exalted"
     
-    banner_number = 0
-    try:
-        banner_number = int(banner_definer)
-    except ValueError as ve:
-        print("Exception: unrecognized banner", ve)
-        #Send a message to frontend
-        return
-    
-    if banner_number == 1 or banner_number == 2:
-        return "Earth"
-    elif banner_number == 41 or banner_number == 42:
-        return "Fire"
-    elif banner_number == 9 or banner_number == 10:
-        return "Wind"
-    elif banner_number == 13 or banner_number == 14:
-        return "Water"
-    elif banner_number == 25 or banner_number == 26:
-        return "Shadow"
-    elif banner_number == 21 or banner_number == 22:
-        return "Ice"
-    elif banner_number == 17 or banner_number == 18:
-        return "Lightning"
-    elif banner_number == 29 or banner_number == 30:
-        return "Light"
-    elif banner_number == 37 or banner_number == 38:
-        return "Nature"
-    elif banner_number == 5 or banner_number == 6:
-        return "Plague"
-    elif banner_number == 33 or banner_number == 34:
-        return "Arcane"
-    else:
-        return "Unknown"
-    
-
-def update_dragon_metadata(dragon_node, soup):
-    #Clan Flight
     banner_div = soup.find("div", class_="banner", role="banner")
     if banner_div:
         style = banner_div.get("style", "")
@@ -72,16 +33,90 @@ def update_dragon_metadata(dragon_node, soup):
         start = style.find("url(")
         end = style.find(")", start)
         if start != -1 and end != -1:
-            image_url = style[start + 4:end].strip("'\"")
+            banner_img_link = style[start + 4:end].strip("'\"")
         else:
             print("URL not found in style.")
+            return
     else:
         print("Banner div not found.")
-    flight = clan_flight(image_url)
+        return
     
+    
+    banner_definer = banner_img_link.split("/")[-1].split(".")[0]
+    
+    flight = "Unknown"
+    exalted = False
+    
+    #Exalted vs Not Exalted
+    if banner_definer == "banner":
+        print("exalted", banner_definer)
+        exalted_details = soup.find("div", class_= "common-column exalted-details-column")
+        deity = exalted_details.findAll("strong")[1].text
+        if deity == "Plaguebringer":
+            flight = "Plague"
+        elif deity == "Lightweaver":
+            flight = "Light"
+        elif deity == "Flamecaller":
+            flight = "Fire"
+        elif deity == "Earthshaker":
+            flight = "Earth"
+        elif deity == "Tidelord":
+            flight = "Water"
+        elif deity == "Windsinger":
+            flight = "Wind"
+        elif deity == "Arcanist":
+            flight = "Arcane"
+        elif deity == "Icewarden":
+            flight = "Ice"
+        elif deity == "Stormcatcher":
+            flight = "Lightning"
+        elif deity == "Shadowbinder":
+            flight = "Shadow"
+        elif deity == "Gladekeeper":
+            flight = "Nature"
+        
+        exalted = True
+    else:
+        banner_number = 0
+        try:
+            banner_number = int(banner_definer)
+        except ValueError as ve:
+            print("Exception: unrecognized banner", ve)
+            #Send a message to frontend
+            return
+        
+        if banner_number == 1 or banner_number == 2:
+            flight = "Earth"
+        elif banner_number == 41 or banner_number == 42:
+            flight = "Fire"
+        elif banner_number == 9 or banner_number == 10:
+            flight = "Wind"
+        elif banner_number == 13 or banner_number == 14:
+            flight = "Water"
+        elif banner_number == 25 or banner_number == 26:
+            flight = "Shadow"
+        elif banner_number == 21 or banner_number == 22:
+            flight = "Ice"
+        elif banner_number == 17 or banner_number == 18:
+            flight = "Lightning"
+        elif banner_number == 29 or banner_number == 30:
+            flight = "Light"
+        elif banner_number == 37 or banner_number == 38:
+            flight = "Nature"
+        elif banner_number == 5 or banner_number == 6:
+            flight = "Plague"
+        elif banner_number == 33 or banner_number == 34:
+            flight = "Arcane"
+
+    return flight, exalted
+    
+
+def update_dragon_metadata(dragon_node, soup):
+    #Clan Flight
+    flight, exalted = clan_flight_exalted(soup)
     
     # #Name
-    if flight == "Exalted":
+    if exalted:
         name_h1 = soup.find("h1", class_="content-header", id="main-content")
     else:
         name_h1 = soup.find("h1", class_="dragon-profile-header-name", id="main-content")
@@ -91,7 +126,7 @@ def update_dragon_metadata(dragon_node, soup):
         print("Name header not found.")
     
     #Gender
-    if flight == "Exalted":
+    if exalted:
         gender = "Unknown"
     else:
         gender_div = soup.find("div", id = "dragon-profile-icon-sex-tooltip") 
@@ -108,11 +143,11 @@ def update_dragon_metadata(dragon_node, soup):
         else:
             print("Gender tooltip div not found.")    
             
-    dragon_node.update_metaData(name, gender, flight)
-    print(name, gender, flight)
+    dragon_node.update_metaData(name, gender, flight, exalted)
+    print(name, gender, flight, exalted)
 
 def update_offspring_nodes(node, soup):
-    if node.flight == "Exalted":
+    if node.exalted:
         lineage_div = soup.find("div", class_= "common-column exalted-details-column")
         if lineage_div:
             offspring_list = lineage_div.findAll('ul', class_="exalted-lineage-list")[1]
@@ -122,6 +157,7 @@ def update_offspring_nodes(node, soup):
             return
     else:
         offspring_list = soup.find("ul", class_= "dragon-profile-lineage-offspring")
+    
     offspring_generation = node.generation + 1
     children = []
     if offspring_list:
@@ -150,7 +186,7 @@ def update_offspring_nodes(node, soup):
 def remove_exalted(root_node):
     return
 
-def fetch_dragon_lineage(root_dragon_id, max_generations=3, exclude_exalted=False):
+def fetch_dragon_lineage(root_dragon_id, max_generations=2, exclude_exalted=False):
     if max_generations > 5:
         print("Risk of visualization being too cluttered")
         #  Send message to frontend
@@ -184,10 +220,11 @@ def fetch_dragon_lineage(root_dragon_id, max_generations=3, exclude_exalted=Fals
             update_dragon_metadata(node, soup)
                 
                 
-            offspring = update_offspring_nodes(node, soup)
-            print(node.dragon_id)
-            for child_node in offspring:
-                queue.append(child_node)
+            print(node.dragon_id, node.generation)
+            if node.generation+1 <= max_generations:
+                offspring = update_offspring_nodes(node, soup)
+                for child_node in offspring:
+                    queue.append(child_node)
             
             
         if exclude_exalted:
@@ -202,4 +239,6 @@ def fetch_dragon_lineage(root_dragon_id, max_generations=3, exclude_exalted=Fals
         driver.quit()
 
 
-fetch_dragon_lineage(9895, 3)
+fetch_dragon_lineage(9900, 3)
+
+

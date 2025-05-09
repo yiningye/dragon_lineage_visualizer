@@ -3,14 +3,16 @@ class DragonNode:
         self.dragon_id = dragon_id
         self.name = ""
         self.gender = "U" #U - Unknown
-        self.flight = "Unknown" #Flight of the clan that the dragon belongs to
+        self.flight = "" #Flight of the clan that the dragon belongs to
+        self.exalted = False
         self.children = []
         self.descendants_num = 0 #Updates after entire tree has beent built
         self.generation = generation
-    def update_metaData(self, name, gender, flight):
+    def update_metaData(self, name, gender, flight, exalted):
         self.name = name
         self.gender = gender
         self.flight = flight
+        self.exalted = exalted
     def add_child(self, child_node):
         self.children.append(child_node)
     def print_metaData(self):
