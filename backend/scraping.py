@@ -9,10 +9,10 @@ import time
 import requests
 import os
 from datetime import datetime, timedelta
-from lineage_helper import DragonNode, serialize_tree
+from lineage_helper import DragonNode, serialize_tree, save_tree_to_json
 import math
 from collections import deque
-
+import json
 
 def calculate_portrait_url(dragon_id):
     print(dragon_id)
@@ -113,20 +113,33 @@ def update_dragon_metadata(dragon_node, soup):
 
 def update_offspring_nodes(node, soup):
     if node.flight == "Exalted":
-        offspring_list = soup.find("ul", class_= "exalted-lineage-list")
+        lineage_div = soup.find("div", class_= "common-column exalted-details-column")
+        if lineage_div:
+            offspring_list = lineage_div.findAll('ul', class_="exalted-lineage-list")[1]
+            print("offspring_list", offspring_list)
+        else:
+            print("No offspring list for exalted dragon")
+            return
     else:
         offspring_list = soup.find("ul", class_= "dragon-profile-lineage-offspring")
     offspring_generation = node.generation + 1
     children = []
     if offspring_list:
         for offspring in offspring_list.findAll('li'):
-            link = offspring.find("a")['href']
-            print("link", link)
-            #https://www1.flightrising.com/dragon/9900
-            dragon_id = int(link.split("/")[-1])
-            child_node = DragonNode(dragon_id, offspring_generation)
-            children.append(child_node)
-            
+            print("offspring", offspring)
+            link_item = offspring.find("a")
+            if link_item:
+                link = link_item['href']
+                print("link", link)
+                #https://www1.flightrising.com/dragon/9900
+                dragon_id = int(link.split("/")[-1])
+                child_node = DragonNode(dragon_id, offspring_generation)
+                children.append(child_node)
+            elif offspring.find("em"):
+                print("No children")
+                break
+            else:
+                print("Unexpected offspring section")
         print("Added offspring.")
         node.children = children
         return children
@@ -161,6 +174,9 @@ def fetch_dragon_lineage(root_dragon_id, max_generations=3, exclude_exalted=Fals
             WebDriverWait(driver, 10).until(
                 EC.presence_of_element_located((By.TAG_NAME, "body"))
             )
+            WebDriverWait(driver, 10).until(
+                lambda d: d.execute_script('return document.readyState') == 'complete'
+            )
             # Parse HTML with BeautifulSoup
             soup = BeautifulSoup(html, "html.parser")
             
@@ -177,9 +193,11 @@ def fetch_dragon_lineage(root_dragon_id, max_generations=3, exclude_exalted=Fals
         if exclude_exalted:
             remove_exalted(rootNode)
 
-            
-        # Convert the data into a json and send to frontend
         
+        # Convert the data into a json and send to frontend
+        with open("./data/dragon_tree.json", 'w') as f:
+            json.dump(serialize_tree(rootNode), f, indent=2)
+
         print(f"Dragon lineage saved in json")
         driver.quit()
 

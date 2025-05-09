@@ -1,0 +1,646 @@
+{
+  "id": 9895,
+  "name": "Naydra",
+  "gender": "Female",
+  "flight": "Wind",
+  "generation": 1,
+  "descendants_num": 0,
+  "children": [
+    {
+      "id": 9900,
+      "name": "Ritus",
+      "gender": "Unknown",
+      "flight": "Exalted",
+      "generation": 2,
+      "descendants_num": 0,
+      "children": [
+        {
+          "id": 124301,
+          "name": "ThePinkStink",
+          "gender": "Unknown",
+          "flight": "Exalted",
+          "generation": 3,
+          "descendants_num": 0,
+          "children": []
+        },
+        {
+          "id": 124302,
+          "name": "Leprae",
+          "gender": "Unknown",
+          "flight": "Exalted",
+          "generation": 3,
+          "descendants_num": 0,
+          "children": [
+            {
+              "id": 257998,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 258000,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 469314,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 469315,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 469316,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 469317,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 656397,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 656398,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 656399,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 656400,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 1619051,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 1619052,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 1619053,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 9901,
+      "name": "Ambrose",
+      "gender": "Male",
+      "flight": "Wind",
+      "generation": 2,
+      "descendants_num": 0,
+      "children": [
+        {
+          "id": 124306,
+          "name": "Unnamed",
+          "gender": "Unknown",
+          "flight": "Exalted",
+          "generation": 3,
+          "descendants_num": 0,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": 9902,
+      "name": "Farosh",
+      "gender": "Male",
+      "flight": "Wind",
+      "generation": 2,
+      "descendants_num": 0,
+      "children": []
+    },
+    {
+      "id": 9903,
+      "name": "Cyclone",
+      "gender": "Female",
+      "flight": "Lightning",
+      "generation": 2,
+      "descendants_num": 0,
+      "children": [
+        {
+          "id": 132013,
+          "name": "Oak",
+          "gender": "Unknown",
+          "flight": "Exalted",
+          "generation": 3,
+          "descendants_num": 0,
+          "children": [
+            {
+              "id": 241946,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 241947,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 648068,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 648069,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 753604,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 2138219,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 2138220,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 2138221,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 2138222,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 2138223,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 2325993,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 2325994,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            }
+          ]
+        },
+        {
+          "id": 132014,
+          "name": "Unnamed",
+          "gender": "Unknown",
+          "flight": "Exalted",
+          "generation": 3,
+          "descendants_num": 0,
+          "children": []
+        },
+        {
+          "id": 132015,
+          "name": "Orchid",
+          "gender": "Female",
+          "flight": "Ice",
+          "generation": 3,
+          "descendants_num": 0,
+          "children": [
+            {
+              "id": 262548,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 262550,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 262552,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 262555,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 491884,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 878634,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 878635,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 878636,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 1115346,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 1115349,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 1115351,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 1115354,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 1630840,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 1630841,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 1630842,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 1927098,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 1927099,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 1927100,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 2569306,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 2569307,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 3209232,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 3209233,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 18651740,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 18651741,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 20348724,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 20348725,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 21102553,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 21102554,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 21926001,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 21926002,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 48884996,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 49545766,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 49545767,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 49545768,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            },
+            {
+              "id": 49545769,
+              "name": "",
+              "gender": "U",
+              "flight": "Unknown",
+              "generation": 4,
+              "descendants_num": 0,
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

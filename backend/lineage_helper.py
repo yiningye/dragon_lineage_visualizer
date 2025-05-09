@@ -15,13 +15,20 @@ class DragonNode:
         self.children.append(child_node)
     def print_metaData(self):
         print(self.id, self.name, self.gender, self.flight)
-    
+
 def serialize_tree(node):
     return {
-        "id": node.id,
+        "id": node.dragon_id,
         "name": node.name,
         "gender": node.gender,
         "flight": node.flight,
-        "pic": node.portrait_url,
+        "generation": node.generation,
+        "descendants_num": node.descendants_num,
         "children": [serialize_tree(child) for child in node.children]
     }
+
+import json
+
+def save_tree_to_json(root_node, file_path):
+    with open(file_path, 'w') as f:
+        json.dump(serialize_tree(root_node), f, indent=2)
