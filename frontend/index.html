@@ -7,6 +7,7 @@
   <div id="controls">
     <input type="text" id="dragonId" placeholder="Enter Dragon ID">
     <input type="number" id="maxGen" placeholder="Max Generations" min="1" max="10">
+    <input type="number" id="excludeExalted" placeholder="Max Generations" min="1" max="10">
     <button id="fetchLineage">Fetch Lineage</button>
   </div>
   
@@ -24,7 +25,7 @@
 
       // Fetch the JSON
       try {
-        const response = await fetch(`/api/lineage?dragonId=${id}&maxGen=${maxGen}`);
+        const response = await fetch(`/api/lineage?dragonId=${id}&maxGen=${maxGen}&excludeExalted=${excludeExalted}`);
         const lineageData = await response.json();
 
         renderTree(lineageData); // Then render it

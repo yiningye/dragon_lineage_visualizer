@@ -9,7 +9,7 @@ import time
 import requests
 import os
 from datetime import datetime, timedelta
-from lineage_helper import DragonNode, serialize_tree, save_tree_to_json
+from lineage_helper import DragonNode, serialize_tree
 import math
 from collections import deque
 import json
@@ -167,7 +167,6 @@ def update_offspring_nodes(node, soup):
             if link_item:
                 link = link_item['href']
                 print("link", link)
-                #https://www1.flightrising.com/dragon/9900
                 dragon_id = int(link.split("/")[-1])
                 child_node = DragonNode(dragon_id, offspring_generation)
                 children.append(child_node)
@@ -184,7 +183,21 @@ def update_offspring_nodes(node, soup):
         return []
     
 def remove_exalted(root_node):
-    return
+    # Base case: if the current node is exalted, return None
+    if root_node.exalted:
+        print(root_node.name, "exalted child")
+        return None
+
+    print("is there filtering")
+    # Filter the children recursively
+    filtered_children = []
+    for child in root_node.children:
+        result = remove_exalted(child)
+        if result is not None:
+            filtered_children.append(result)
+    
+    root_node.children = filtered_children
+    return root_node
 
 def fetch_dragon_lineage(root_dragon_id, max_generations=2, exclude_exalted=False):
     if max_generations > 5:
@@ -213,6 +226,7 @@ def fetch_dragon_lineage(root_dragon_id, max_generations=2, exclude_exalted=Fals
             WebDriverWait(driver, 10).until(
                 lambda d: d.execute_script('return document.readyState') == 'complete'
             )
+            time.sleep(1)
             # Parse HTML with BeautifulSoup
             soup = BeautifulSoup(html, "html.parser")
             
@@ -225,11 +239,14 @@ def fetch_dragon_lineage(root_dragon_id, max_generations=2, exclude_exalted=Fals
                 offspring = update_offspring_nodes(node, soup)
                 for child_node in offspring:
                     queue.append(child_node)
-            
-            
+        
+        
         if exclude_exalted:
-            remove_exalted(rootNode)
-
+            if rootNode.exalted:
+                print("Cannot exclude exalted dragons if root dragon is an exalted dragon") 
+                return
+            else: 
+                rootNode = remove_exalted(rootNode)
         
         # Convert the data into a json and send to frontend
         with open("./data/dragon_tree.json", 'w') as f:
@@ -239,6 +256,6 @@ def fetch_dragon_lineage(root_dragon_id, max_generations=2, exclude_exalted=Fals
         driver.quit()
 
 
-fetch_dragon_lineage(9900, 3)
+fetch_dragon_lineage(4187, 2, True)
 
 

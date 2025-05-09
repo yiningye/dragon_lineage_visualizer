@@ -26,11 +26,6 @@ def serialize_tree(node):
         "flight": node.flight,
         "generation": node.generation,
         "descendants_num": node.descendants_num,
+        "exalted": node.exalted,
         "children": [serialize_tree(child) for child in node.children]
     }
-
-import json
-
-def save_tree_to_json(root_node, file_path):
-    with open(file_path, 'w') as f:
-        json.dump(serialize_tree(root_node), f, indent=2)
