@@ -248,6 +248,9 @@ def fetch_dragon_lineage(root_dragon_id, max_generations=2, exclude_exalted=Fals
             else: 
                 rootNode = remove_exalted(rootNode)
         
+        file_path = f"./data/dragon_{root_dragon_id}.json"
+
+        
         # Convert the data into a json and send to frontend
         with open("./data/dragon_tree.json", 'w') as f:
             json.dump(serialize_tree(rootNode), f, indent=2)
