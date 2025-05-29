@@ -1,5 +1,7 @@
 from flask import Flask, request, jsonify, render_template
-from backend.dragon_tree import build_lineage_tree  # your logic to construct trees
+from scraping import fetch_lineage_tree  # your logic to construct trees
+from lineage_helper import serialize_tree
+
 import os
 import json
 
@@ -18,7 +20,6 @@ dummy_lineage_data = {
 }
 
 @app.route('/api/lineage')
-@app.route('/')
 @app.route('/index')
 @app.route('/')
 def index():
@@ -38,8 +39,7 @@ def get_lineage():
 
     # Otherwise generate from live scraping/tree logic
     try:
-        root_node = build_lineage_tree(dragon_id, max_gen)
-        from dragon_tree import serialize_tree
+        root_node = fetch_lineage_tree(dragon_id, max_gen)
         tree_json = serialize_tree(root_node)
 
         # Optional: save to file

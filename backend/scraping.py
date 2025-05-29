@@ -24,32 +24,12 @@ def calculate_portrait_url(dragon_id):
 
 def clan_flight_exalted(soup):
     # Example flight banner link: /static/cms/location_banners/34.jpg
-    # Exalted banner: /static/layout/none/banner.jpg
-    
-    banner_div = soup.find("div", class_="banner", role="banner")
-    if banner_div:
-        style = banner_div.get("style", "")
-        # Extract the URL using string operations
-        start = style.find("url(")
-        end = style.find(")", start)
-        if start != -1 and end != -1:
-            banner_img_link = style[start + 4:end].strip("'\"")
-        else:
-            print("URL not found in style.")
-            return
-    else:
-        print("Banner div not found.")
-        return
-    
-    
-    banner_definer = banner_img_link.split("/")[-1].split(".")[0]
-    
     flight = "Unknown"
     exalted = False
     
-    #Exalted vs Not Exalted
-    if banner_definer == "banner":
-        print("exalted", banner_definer)
+    # Exalted
+    if soup.find("div", class_="exalted-index", id="exalted-content"):
+        print("exalted")
         exalted_details = soup.find("div", class_= "common-column exalted-details-column")
         deity = exalted_details.findAll("strong")[1].text
         if deity == "Plaguebringer":
@@ -76,37 +56,59 @@ def clan_flight_exalted(soup):
             flight = "Nature"
         
         exalted = True
+        return flight, exalted
+    
+    #Not Exalted
+    exalted = False
+    banner_div = soup.find("div", class_="banner", role="banner")
+    if banner_div:
+        style = banner_div.get("style", "")
+        # Extract the URL using string operations
+        start = style.find("url(")
+        end = style.find(")", start)
+        if start != -1 and end != -1:
+            banner_img_link = style[start + 4:end].strip("'\"")
+        else:
+            print("URL not found in style.")
+            return None, None
     else:
-        banner_number = 0
-        try:
-            banner_number = int(banner_definer)
-        except ValueError as ve:
-            print("Exception: unrecognized banner", ve)
-            #Send a message to frontend
-            return
-        
-        if banner_number == 1 or banner_number == 2:
-            flight = "Earth"
-        elif banner_number == 41 or banner_number == 42:
-            flight = "Fire"
-        elif banner_number == 9 or banner_number == 10:
-            flight = "Wind"
-        elif banner_number == 13 or banner_number == 14:
-            flight = "Water"
-        elif banner_number == 25 or banner_number == 26:
-            flight = "Shadow"
-        elif banner_number == 21 or banner_number == 22:
-            flight = "Ice"
-        elif banner_number == 17 or banner_number == 18:
-            flight = "Lightning"
-        elif banner_number == 29 or banner_number == 30:
-            flight = "Light"
-        elif banner_number == 37 or banner_number == 38:
-            flight = "Nature"
-        elif banner_number == 5 or banner_number == 6:
-            flight = "Plague"
-        elif banner_number == 33 or banner_number == 34:
-            flight = "Arcane"
+        print("Banner div not found.")
+        return None, None
+    
+    
+    banner_definer = banner_img_link.split("/")[-1].split(".")[0]
+    print("banner_definer", banner_definer)
+    
+    banner_number = 0
+    try:
+        banner_number = int(banner_definer)
+    except ValueError as ve:
+        print("Exception: unrecognized banner", ve)
+        #Send a message to frontend
+        return
+    
+    if banner_number == 1 or banner_number == 2:
+        flight = "Earth"
+    elif banner_number == 41 or banner_number == 42:
+        flight = "Fire"
+    elif banner_number == 9 or banner_number == 10:
+        flight = "Wind"
+    elif banner_number == 13 or banner_number == 14:
+        flight = "Water"
+    elif banner_number == 25 or banner_number == 26:
+        flight = "Shadow"
+    elif banner_number == 21 or banner_number == 22:
+        flight = "Ice"
+    elif banner_number == 17 or banner_number == 18:
+        flight = "Lightning"
+    elif banner_number == 29 or banner_number == 30:
+        flight = "Light"
+    elif banner_number == 37 or banner_number == 38:
+        flight = "Nature"
+    elif banner_number == 5 or banner_number == 6:
+        flight = "Plague"
+    elif banner_number == 33 or banner_number == 34:
+        flight = "Arcane"
 
     return flight, exalted
     
@@ -243,6 +245,7 @@ def fetch_dragon_lineage(root_dragon_id, max_generations=2, exclude_exalted=Fals
         
         if exclude_exalted:
             if rootNode.exalted:
+                #Send message to frontend
                 print("Cannot exclude exalted dragons if root dragon is an exalted dragon") 
                 return
             else: 
@@ -255,10 +258,11 @@ def fetch_dragon_lineage(root_dragon_id, max_generations=2, exclude_exalted=Fals
         with open("./data/dragon_tree.json", 'w') as f:
             json.dump(serialize_tree(rootNode), f, indent=2)
 
+        
         print(f"Dragon lineage saved in json")
         driver.quit()
+        return rootNode
 
 
-fetch_dragon_lineage(4187, 2, True)
-
+fetch_dragon_lineage(493, 2, False)
 
