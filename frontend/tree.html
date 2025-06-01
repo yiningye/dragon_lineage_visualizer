@@ -36,20 +36,46 @@
     <script>
         // Example dragon lineage data
         const data = {
-            name: "Elder Dragon",
-            children: [
-                { name: "Windscale" },
-                { 
-                    name: "Firespike", 
-                    children: [
-                        { name: "Ember" },
-                        { name: "Blazetail" },
-                        { name: "Inferno" }
-                    ] 
-                },
-                { name: "Stormcry" }
-            ]
-        };
+  "id": 31833616,
+  "name": "Corthyra",
+  "gender": "Male",
+  "flight": "Arcane",
+  "generation": 1,
+  "descendants_num": 0,
+  "exalted": false,
+  "children": [
+    {
+      "id": 61929820,
+      "name": "Ysolde",
+      "gender": "Female",
+      "flight": "Arcane",
+      "generation": 2,
+      "descendants_num": 0,
+      "exalted": false,
+      "children": []
+    },
+    {
+      "id": 73172442,
+      "name": "Faraday",
+      "gender": "Female",
+      "flight": "Arcane",
+      "generation": 2,
+      "descendants_num": 0,
+      "exalted": false,
+      "children": []
+    },
+    {
+      "id": 76008781,
+      "name": "Unnamed",
+      "gender": "Male",
+      "flight": "Wind",
+      "generation": 2,
+      "descendants_num": 0,
+      "exalted": false,
+      "children": []
+    }
+  ]
+};
 
         const svg = d3.select("svg");
         const g = svg.append("g"); // We'll move the tree inside this <g> group
