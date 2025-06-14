@@ -153,7 +153,7 @@ def update_offspring_nodes(node, soup):
         lineage_div = soup.find("div", class_= "common-column exalted-details-column")
         if lineage_div:
             offspring_list = lineage_div.findAll('ul', class_="exalted-lineage-list")[1]
-            print("offspring_list", offspring_list)
+            print(node.name, "'s offspring_list", offspring_list)
         else:
             print("No offspring list for exalted dragon")
             return
@@ -177,7 +177,7 @@ def update_offspring_nodes(node, soup):
                 break
             else:
                 print("Unexpected offspring section")
-        print("Added offspring.")
+        print("Added offspring of ", node.name)
         node.children = children
         return children
     else:
@@ -241,17 +241,17 @@ def fetch_dragon_lineage(root_dragon_id, max_generations=2, exclude_exalted=Fals
                 offspring = update_offspring_nodes(node, soup)
                 for child_node in offspring:
                     queue.append(child_node)
-        
-        
-        if exclude_exalted:
+                
+        if exclude_exalted == "true":
             if rootNode.exalted:
                 #Send message to frontend
                 print("Cannot exclude exalted dragons if root dragon is an exalted dragon") 
                 return
             else: 
                 rootNode = remove_exalted(rootNode)
+
         
-        file_path = f"./data/dragon_{root_dragon_id}.json"
+        # file_path = f"./data/dragon_{root_dragon_id}.json"
 
         
         # Convert the data into a json and send to frontend
