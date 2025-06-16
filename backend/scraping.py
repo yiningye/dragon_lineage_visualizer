@@ -87,27 +87,27 @@ def clan_flight_exalted(soup):
         #Send a message to frontend
         return
     
-    if banner_number == 1 or banner_number == 2:
+    if banner_number in range(1, 4):
         flight = "Earth"
-    elif banner_number == 41 or banner_number == 42:
+    elif banner_number in range(41,44):
         flight = "Fire"
-    elif banner_number == 9 or banner_number == 10:
+    elif banner_number in range(9, 12):
         flight = "Wind"
-    elif banner_number == 13 or banner_number == 14:
+    elif banner_number in range(13,16):
         flight = "Water"
-    elif banner_number == 25 or banner_number == 26:
+    elif banner_number in range(25, 28):
         flight = "Shadow"
-    elif banner_number == 21 or banner_number == 22:
+    elif banner_number in range(21,24):
         flight = "Ice"
-    elif banner_number == 17 or banner_number == 18:
+    elif banner_number in range(17,20):
         flight = "Lightning"
-    elif banner_number == 29 or banner_number == 30:
+    elif banner_number in range(29,32):
         flight = "Light"
-    elif banner_number == 37 or banner_number == 38:
+    elif banner_number in range(37, 40):
         flight = "Nature"
-    elif banner_number == 5 or banner_number == 6:
+    elif banner_number in range(5, 8):
         flight = "Plague"
-    elif banner_number == 33 or banner_number == 34:
+    elif banner_number in range(33, 36):
         flight = "Arcane"
 
     return flight, exalted

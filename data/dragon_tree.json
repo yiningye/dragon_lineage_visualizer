@@ -6,5 +6,109 @@
   "generation": 1,
   "descendants_num": 0,
   "exalted": false,
-  "children": []
+  "children": [
+    {
+      "id": 9900,
+      "name": "Ritus",
+      "gender": "Unknown",
+      "flight": "Plague",
+      "generation": 2,
+      "descendants_num": 0,
+      "exalted": true,
+      "children": [
+        {
+          "id": 124301,
+          "name": "ThePinkStink",
+          "gender": "Unknown",
+          "flight": "Plague",
+          "generation": 3,
+          "descendants_num": 0,
+          "exalted": true,
+          "children": []
+        },
+        {
+          "id": 124302,
+          "name": "Leprae",
+          "gender": "Unknown",
+          "flight": "Plague",
+          "generation": 3,
+          "descendants_num": 0,
+          "exalted": true,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": 9901,
+      "name": "Ambrose",
+      "gender": "Male",
+      "flight": "Wind",
+      "generation": 2,
+      "descendants_num": 0,
+      "exalted": false,
+      "children": [
+        {
+          "id": 124306,
+          "name": "Unnamed",
+          "gender": "Unknown",
+          "flight": "Plague",
+          "generation": 3,
+          "descendants_num": 0,
+          "exalted": true,
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": 9902,
+      "name": "Farosh",
+      "gender": "Male",
+      "flight": "Wind",
+      "generation": 2,
+      "descendants_num": 0,
+      "exalted": false,
+      "children": []
+    },
+    {
+      "id": 9903,
+      "name": "Cyclone",
+      "gender": "Female",
+      "flight": "Lightning",
+      "generation": 2,
+      "descendants_num": 0,
+      "exalted": false,
+      "children": [
+        {
+          "id": 132013,
+          "name": "Oak",
+          "gender": "Unknown",
+          "flight": "Shadow",
+          "generation": 3,
+          "descendants_num": 0,
+          "exalted": true,
+          "children": []
+        },
+        {
+          "id": 132014,
+          "name": "Unnamed",
+          "gender": "Unknown",
+          "flight": "Plague",
+          "generation": 3,
+          "descendants_num": 0,
+          "exalted": true,
+          "children": []
+        },
+        {
+          "id": 132015,
+          "name": "Orchid",
+          "gender": "Female",
+          "flight": "Ice",
+          "generation": 3,
+          "descendants_num": 0,
+          "exalted": false,
+          "children": []
+        }
+      ]
+    }
+  ]
 }
