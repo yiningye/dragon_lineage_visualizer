@@ -171,8 +171,8 @@
         renderTree(lineageData); // Then render it
       } catch (e) {
         console.error("Failed to fetch lineage", e);
-      }
-        */
+      }*/
+        
     });
 
     function renderTree(data) {
@@ -183,7 +183,7 @@
 
 
       const root = d3.hierarchy(data);
-      const treeLayout = d3.tree().nodeSize([150, 50]);
+      const treeLayout = d3.tree().nodeSize([150, 100]);
       treeLayout(root);
 
       const largestXofTree = Math.max(...root.descendants().map(d => d.x));
