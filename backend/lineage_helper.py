@@ -1,3 +1,16 @@
+import math
+
+def calculate_portrait(dragon_id):
+    try:
+        dragon_id = int(dragon_id)
+        portrait_id = math.ceil(dragon_id / 100)
+        if dragon_id % 100 == 0:
+            portrait_id += 1
+        return portrait_id
+    except Exception:
+        print("Invalid dragon_id: ", dragon_id)
+        return 0
+    
 class DragonNode:
     def __init__(self, dragon_id, generation):
         self.dragon_id = dragon_id
@@ -8,6 +21,9 @@ class DragonNode:
         self.children = []
         self.descendants_num = 0 #Updates after entire tree has beent built
         self.generation = generation
+        self.portrait_id = calculate_portrait(int(dragon_id))
+        
+        
     def update_metaData(self, name, gender, flight, exalted):
         self.name = name
         self.gender = gender
@@ -20,12 +36,13 @@ class DragonNode:
 
 def serialize_tree(node):
     return {
-        "id": node.dragon_id,
+        "dragon_id": node.dragon_id,
         "name": node.name,
         "gender": node.gender,
         "flight": node.flight,
         "generation": node.generation,
         "descendants_num": node.descendants_num,
         "exalted": node.exalted,
+        "portrait_id": node.portrait_id,
         "children": [serialize_tree(child) for child in node.children]
     }

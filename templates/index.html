@@ -3,11 +3,7 @@
   <title>Dragon Lineage Builder</title>
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <style>
-    svg {
-      border: 1px solid #ccc;
-      width: 100%;
-      height: 100%;
-    }
+    
     .link {
       fill: none;
       stroke: #555;
@@ -25,6 +21,8 @@
       flex: 1 1 400px;
       width: 100%;
       height: 100%;
+      overflow: auto;
+      border: 1px solid #ccc;
     }
 
     body {
@@ -147,7 +145,7 @@
       }
       
       //Debug from static json
-      /*fetch('/static/data/dragon_tree.json')
+      fetch('/static/data/dragon_tree.json')
       .then(response => {
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
@@ -161,9 +159,10 @@
       })
       .catch(error => {
         console.error('Error fetching JSON:', error);
-      });*/
+      }); 
       
       // Fetch the JSON
+      /*
       try {
         const response = await fetch(`/api/lineage?dragonId=${id}&maxGen=${maxGen}&excludeExalted=${excludeExalted}`);
         const lineageData = await response.json();
@@ -173,6 +172,7 @@
       } catch (e) {
         console.error("Failed to fetch lineage", e);
       }
+        */
     });
 
     function renderTree(data) {
@@ -181,41 +181,86 @@
       const container = document.getElementById('tree-container');
       container.innerHTML = ""; // Clear previous content
 
-      const svg = d3.select("#tree-container")
-        .append("svg")
-
-      const g = svg.append("g").attr("transform", "translate(100,300)");
 
       const root = d3.hierarchy(data);
       const treeLayout = d3.tree().nodeSize([150, 50]);
       treeLayout(root);
 
+      const largestXofTree = Math.max(...root.descendants().map(d => d.x));
+      const smallestXofTree = Math.min(...root.descendants().map(d => d.x));
+
+      const heightTree = Math.max(...root.descendants().map(d => d.y)) + 200;
+
+      
+
+      // Compute bounds
+      const nodes = root.descendants();
+      const minX = d3.min(nodes, d => d.x);
+      const maxX = d3.max(nodes, d => d.x);
+
+      const svgWidth = container.clientWidth;
+      const svgHeight = container.clientHeight;
+
+      const allX = root.descendants().map(d => d.x);
+      console.log("All X values:", allX);
+      console.log("Max X:", Math.max(...allX));
+      console.log("Min X:", Math.min(...allX));
+      const svg = d3.select("#tree-container")
+        .append("svg")
+        .attr("width", Math.abs(largestXofTree)+Math.abs(smallestXofTree)+400)
+        .attr("height", heightTree)
+      const g = svg.append("g")
+        .attr("transform", `translate(${Math.abs(smallestXofTree)+200}, 50)`);
+      
+        
+
       // Draw links
       g.selectAll(".link")
-        .data(root.links())
-        .join("path")
-        .attr("class", "link")
-        .attr("d", d3.linkVertical()
-          .x(d => d.x)
-          .y(d => d.y)
-        );
+    .data(root.links())
+    .join("path")
+    .attr("class", "link")
+    .attr("d", d => `
+      M${d.source.x},${d.source.y}
+      V${d.target.y}
+      H${d.target.x}`);
 
-      // Draw nodes
-      const node = g.selectAll(".node")
-        .data(root.descendants())
-        .join("g")
-        .attr("class", "node")
-        .attr("transform", d => `translate(${d.x},${d.y})`);
+  // Draw nodes
+    const node = g.selectAll(".node")
+      .data(root.descendants())
+      .join("g")
+      .attr("class", "node")
+      .attr("transform", d => `translate(${d.x},${d.y})`);
 
-      node.append("circle")
-        .attr("r", 10);
+    // Example dragon image (replace with actual image logic as needed)
+    node.append("image")
+      .attr("xlink:href", d => `https://www1.flightrising.com/rendern/portraits/${d.data.portrait_id}/${d.data.dragon_id}p.png`)
+      .attr("x", -20)
+      .attr("y", -40)
+      .attr("width", 40)
+      .attr("height", 40);
 
-      node.append("text")
-        .attr("dy", "0.31em")
-        .attr("x", d => d.children ? -15 : 15)
-        .attr("text-anchor", d => d.children ? "end" : "start")
-        .text(d => d.data.name);
-    }
+    // Name
+    node.append("text")
+      .attr("dy", "1.5em")
+      .attr("text-anchor", "middle")
+      .text(d => d.data.name || "Unnamed");
+
+    // Metadata below
+    node.append("text")
+      .attr("dy", "2.7em")
+      .attr("text-anchor", "middle")
+      .style("font-size", "10px")
+      .style("fill", "#666")
+      .text(d => `${d.data.gender} | ${d.data.flight} Flight`);
+
+    // Optional styling based on gender
+    node.selectAll("image")
+      .attr("stroke", d => d.data.gender === "M" ? "#4a90e2" :
+                          d.data.gender === "F" ? "#e94e77" : "#aaa")
+      .attr("stroke-width", 2)
+      .attr("rx", 4);  // rounded corners
+  }
+    
   </script>
 </body>
 </html>

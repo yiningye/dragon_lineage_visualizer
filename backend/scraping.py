@@ -10,17 +10,11 @@ import requests
 import os
 from datetime import datetime, timedelta
 from .lineage_helper import DragonNode, serialize_tree
-import math
 from collections import deque
 import json
 
-def calculate_portrait_url(dragon_id):
-    print(dragon_id)
-    portrait_id = math.ceil(dragon_id/100)
-    if (dragon_id % 100 == 0):
-        portrait_id += 1;
 
-    return 'http://flightrising.com/rendern/portraits/' + str(portrait_id) + '/' + str(dragon_id) + 'p.png'
+
 
 def clan_flight_exalted(soup):
     # Example flight banner link: /static/cms/location_banners/34.jpg
