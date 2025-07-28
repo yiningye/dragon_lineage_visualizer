@@ -145,6 +145,7 @@
       }
       
       //Debug from static json
+      /*
       fetch('/static/data/dragon_tree.json')
       .then(response => {
         if (!response.ok) {
@@ -160,9 +161,9 @@
       .catch(error => {
         console.error('Error fetching JSON:', error);
       }); 
-      
+      */
       // Fetch the JSON
-      /*
+      
       try {
         const response = await fetch(`/api/lineage?dragonId=${id}&maxGen=${maxGen}&excludeExalted=${excludeExalted}`);
         const lineageData = await response.json();
@@ -171,7 +172,7 @@
         renderTree(lineageData); // Then render it
       } catch (e) {
         console.error("Failed to fetch lineage", e);
-      }*/
+      }
         
     });
 

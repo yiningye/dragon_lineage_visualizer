@@ -1,10 +1,125 @@
 {
-  "id": "101965294",
-  "name": "NicoRobin",
+  "dragon_id": "9895",
+  "name": "Naydra",
   "gender": "Female",
-  "flight": "Lightning",
+  "flight": "Wind",
   "generation": 1,
   "descendants_num": 0,
   "exalted": false,
-  "children": []
+  "portrait_id": 99,
+  "children": [
+    {
+      "dragon_id": 9900,
+      "name": "Ritus",
+      "gender": "Unknown",
+      "flight": "Plague",
+      "generation": 2,
+      "descendants_num": 0,
+      "exalted": true,
+      "portrait_id": 100,
+      "children": [
+        {
+          "dragon_id": 124301,
+          "name": "ThePinkStink",
+          "gender": "Unknown",
+          "flight": "Plague",
+          "generation": 3,
+          "descendants_num": 0,
+          "exalted": true,
+          "portrait_id": 1244,
+          "children": []
+        },
+        {
+          "dragon_id": 124302,
+          "name": "Leprae",
+          "gender": "Unknown",
+          "flight": "Plague",
+          "generation": 3,
+          "descendants_num": 0,
+          "exalted": true,
+          "portrait_id": 1244,
+          "children": []
+        }
+      ]
+    },
+    {
+      "dragon_id": 9901,
+      "name": "Ambrose",
+      "gender": "Male",
+      "flight": "Wind",
+      "generation": 2,
+      "descendants_num": 0,
+      "exalted": false,
+      "portrait_id": 100,
+      "children": [
+        {
+          "dragon_id": 124306,
+          "name": "Unnamed",
+          "gender": "Unknown",
+          "flight": "Plague",
+          "generation": 3,
+          "descendants_num": 0,
+          "exalted": true,
+          "portrait_id": 1244,
+          "children": []
+        }
+      ]
+    },
+    {
+      "dragon_id": 9902,
+      "name": "Farosh",
+      "gender": "Male",
+      "flight": "Wind",
+      "generation": 2,
+      "descendants_num": 0,
+      "exalted": false,
+      "portrait_id": 100,
+      "children": []
+    },
+    {
+      "dragon_id": 9903,
+      "name": "Cyclone",
+      "gender": "Female",
+      "flight": "Lightning",
+      "generation": 2,
+      "descendants_num": 0,
+      "exalted": false,
+      "portrait_id": 100,
+      "children": [
+        {
+          "dragon_id": 132013,
+          "name": "Oak",
+          "gender": "Unknown",
+          "flight": "Shadow",
+          "generation": 3,
+          "descendants_num": 0,
+          "exalted": true,
+          "portrait_id": 1321,
+          "children": []
+        },
+        {
+          "dragon_id": 132014,
+          "name": "Unnamed",
+          "gender": "Unknown",
+          "flight": "Plague",
+          "generation": 3,
+          "descendants_num": 0,
+          "exalted": true,
+          "portrait_id": 1321,
+          "children": []
+        },
+        {
+          "dragon_id": 132015,
+          "name": "Orchid",
+          "gender": "Female",
+          "flight": "Ice",
+          "generation": 3,
+          "descendants_num": 0,
+          "exalted": false,
+          "portrait_id": 1321,
+          "children": []
+        }
+      ]
+    }
+  ]
 }
