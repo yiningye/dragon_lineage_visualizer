@@ -1,6 +1,6 @@
 # 🐉 Dragon Lineage Visualizer (beta)
 
-Curious about where your dragons' descendants ended up? Whether they’ve joined clans in other flights, had children of their own, or sworn service to the elemental gods, this tool fetches that information for you and visualizes it in an interactive, easy-to-read **lineage tree**. 
+Curious about where your dragons' descendants ended up? Whether they’ve joined clans in other flights, had children of their own, or sworn service to the elemental gods, this tool fetches that information for you and visualizes it in a easy-to-read **lineage tree**. 
 
 You can display multiple generations of a single dragon and also exclude exalted dragons if you wish. This web-based scrapper tool uses BeautifulSoup and Flask. 
 
