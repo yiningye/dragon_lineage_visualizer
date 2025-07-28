@@ -1,4 +1,4 @@
-# 🐉 Dragon Lineage Visualizer
+# 🐉 Dragon Lineage Visualizer (beta)
 
 Curious about where your dragons' descendants ended up? Whether they’ve joined clans in other flights, had children of their own, or sworn service to the elemental gods, this tool fetches that information for you and visualizes it in an interactive, easy-to-read **lineage tree**. 
 
